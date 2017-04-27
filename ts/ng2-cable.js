@@ -10,27 +10,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Injectable } from '@angular/core';
 import * as ActionCable from 'actioncable';
 import { Broadcaster } from './broadcaster';
-var Ng2Cable = (function () {
-    function Ng2Cable(broadcaster) {
+let Ng2Cable = class Ng2Cable {
+    constructor(broadcaster) {
         this.broadcaster = broadcaster;
     }
-    Ng2Cable.prototype.subscribe = function (url, channel) {
-        var _this = this;
+    subscribe(url, channel) {
         this.setCable(url);
         this.subscription = this.cable.subscriptions.create(channel, {
-            received: function (data) {
-                _this.broadcaster.broadcast((data.action || channel), data);
+            received: (data) => {
+                this.broadcaster.broadcast((data.action || channel), data);
             }
         });
-    };
-    Ng2Cable.prototype.setCable = function (url) {
+    }
+    setCable(url) {
         this.cable = ActionCable.createConsumer(url);
-    };
-    Ng2Cable.prototype.unsubscribe = function () {
+    }
+    unsubscribe() {
         this.cable.subscriptions.remove(this.subscription);
-    };
-    return Ng2Cable;
-}());
+    }
+};
 Ng2Cable = __decorate([
     Injectable(),
     __metadata("design:paramtypes", [Broadcaster])
