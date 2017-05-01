@@ -1,17 +1,19 @@
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
-export class Broadcaster {
-    constructor() {
+var Broadcaster = (function () {
+    function Broadcaster() {
         this._eventBus = new Subject();
     }
-    broadcast(key, data) {
-        this._eventBus.next({ key, data });
-    }
-    on(key) {
+    Broadcaster.prototype.broadcast = function (key, data) {
+        this._eventBus.next({ key: key, data: data });
+    };
+    Broadcaster.prototype.on = function (key) {
         return this._eventBus.asObservable()
-            .filter(event => event.key === key)
-            .map(event => event.data);
-    }
-}
+            .filter(function (event) { return event.key === key; })
+            .map(function (event) { return event.data; });
+    };
+    return Broadcaster;
+}());
+export { Broadcaster };
 //# sourceMappingURL=broadcaster.js.map
