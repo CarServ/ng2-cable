@@ -1,6 +1,4 @@
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/map';
+import { Observable } from 'rxjs';
 export interface BroadcastEvent {
     key: any;
     data?: any;

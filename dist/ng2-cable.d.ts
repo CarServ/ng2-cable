@@ -1,4 +1,3 @@
-/// <reference types="actioncable" />
 import * as ActionCable from 'actioncable';
 import { Broadcaster } from './broadcaster';
 export declare class Ng2Cable {
